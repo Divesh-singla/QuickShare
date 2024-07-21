@@ -8,7 +8,7 @@ from sib_api_v3_sdk.rest import ApiException
 def __sendMail(name,email,otp):
 
     configuration = sib_api_v3_sdk.Configuration()
-    configuration.api_key['api-key'] = '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' 
+    configuration.api_key['api-key'] = '<placeholder>' 
 
     # Create an instance of the API class
     api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
