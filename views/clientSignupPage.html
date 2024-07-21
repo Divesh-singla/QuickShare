@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #6A1B9A;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: row;
+            width: 90%;
+            max-width: 1200px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .left_side {
+            width: 50%;
+            background: url('/static/clientUserLoginPageImage2.jpg') no-repeat center center;
+            background-size: cover;
+            height: 100%;
+        }
+
+        .right_side {
+            width: 50%;
+            background-color: #fff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            height: 100%;
+        }
+
+        .right_side h3 {
+            font-size: 2rem;
+            color: #6A1B9A;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .right_side form {
+            width: 100%;
+        }
+
+        .right_side .form-group {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .right_side .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #777;
+            font-size: 0.875rem; /* Adjust font size for labels */
+        }
+
+        .right_side .form-group input {
+            width: 100%;
+            padding: 0.75rem; /* Adjust padding */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1rem; /* Adjust font size */
+        }
+
+        .right_side .form-group input.error {
+            border-color: #FF5722; /* Color for error state */
+            background-color: #FFEBEE; /* Light red background for error state */
+        }
+
+        .right_side .form-group .show-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6A1B9A;
+            transition: color 0.3s ease;
+        }
+
+        .right_side .form-group .show-password.open {
+            color: #FF5722; /* Color when password is visible */
+        }
+
+        .right_side .btn-primary {
+            background-color: #6A1B9A;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem; /* Adjust font size */
+        }
+
+        .right_side .btn-primary:hover {
+            background-color: #4A0072;
+        }
+
+        .right_side .btn-secondary {
+            background-color: #fff;
+            color: #6A1B9A;
+            border: 1px solid #6A1B9A;
+            padding: 0.75rem;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem; /* Adjust font size */
+        }
+
+        .right_side .btn-secondary:hover {
+            background-color: #f0f0f0;
+        }
+
+        .error-message {
+            color: #FF5722; /* Error color */
+            display: none;
+            font-size: 0.75rem; /* Adjust font size for error messages */
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .wrapper {
+                flex-direction: column;
+                width: 100%;
+                height: auto; /* Adjust height for responsiveness */
+            }
+
+            .left_side, .right_side {
+                width: 100%;
+                height: auto;
+            }
+
+            .right_side {
+                padding: 1rem;
+            }
+
+            .right_side h3 {
+                font-size: 1.5rem; /* Adjust font size for headers */
+            }
+
+            .right_side .form-group input {
+                padding: 0.5rem; /* Adjust padding for smaller screens */
+            }
+
+            .right_side .btn-primary,
+            .right_side .btn-secondary {
+                padding: 0.5rem; /* Adjust padding for buttons */
+            }
+        }
+        .alert {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="left_side"></div>
+        <div class="right_side">
+            <h3>Sign Up</h3>
+            <form id="signup-form" method="post" >
+                {% csrf_token %}
+                <div id="alert">
+
+                    {% if status.0 == True %}
+                        <div class="alert alert-success" role="alert" id="msgAlert">
+                            {{status.1}}
+                        </div>
+                    {% elif status.0 == False%}
+                        <div class="alert alert-danger" role="alert" id="msgAlert">
+                            {{status.1}}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="first-name" placeholder="Enter First Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="last-name" placeholder="Enter Last Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter Username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter Email Address" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" name="new-password" placeholder="Enter New Password" required>
+                    <i class="fas fa-eye show-password" id="toggle-new-password" onclick="togglePassword('new-password', 'toggle-new-password')"></i>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+                    <i class="fas fa-eye show-password" id="toggle-confirm-password" onclick="togglePassword('confirm-password', 'toggle-confirm-password')"></i>
+                    <span class="error-message" id="confirm-password-error">Passwords do not match</span>
+                </div>
+                <input type="button" class="btn-primary" onclick="submitValidation()" value="Sign Up">
+                <button type="button" class="btn-secondary" onclick="window.location.href='/client/Login'">Back to Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            var password = document.getElementById("new-password").value;
+            var confirmPassword = document.getElementById("confirm-password").value;
+            var confirmPasswordField = document.getElementById("confirm-password");
+            var errorMessage = document.getElementById("confirm-password-error");
+
+            // Reset error state
+            confirmPasswordField.classList.remove("error");
+            errorMessage.style.display = "none";
+
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+            
+            if (password !== confirmPassword) {
+                confirmPasswordField.classList.add("error");
+                errorMessage.style.display = "block";
+                return false;
+            }
+
+            return true;
+        }
+
+        function togglePassword(id, toggleIconId) {
+            var passwordField = document.getElementById(id);
+            var toggleIcon = document.getElementById(toggleIconId);
+            var type = passwordField.type === "password" ? "text" : "password";
+            passwordField.type = type;
+            toggleIcon.classList.toggle("fa-eye");
+            toggleIcon.classList.toggle("fa-eye-slash");
+            toggleIcon.classList.toggle("open");
+        }
+        
+        function submitValidation() {
+            var form = document.getElementById("signup-form");
+            if (validateForm()) {
+                form.submit();
+            }
+        }
+
+        if ("{{status.0}}" == "True"){
+            
+                setTimeout(()=>{
+                    alert("You have successfully signed up. You will be redirected to the login page shortly. Thank you for your patience.")
+                    window.location.href = '/client/Login'
+                },1500)}
+    </script>
+</body>
+</html>
