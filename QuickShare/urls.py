@@ -29,7 +29,7 @@ urlpatterns = [
     # path("forgotPassword/", getForgotPassword, name="forgot password"),
     # path("uploadDoc/", ImportDocx, name="Upload document"),
     path("admin/",include(adminUrlPatterns)),
-    path("client/",include(clientUrlPatterns)),
+    path("",include(clientUrlPatterns)),
     path("forbidden/",forbiddenPage),
 
 
