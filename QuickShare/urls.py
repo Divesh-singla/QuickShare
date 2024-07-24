@@ -31,6 +31,7 @@ urlpatterns = [
     path("admin/",include(adminUrlPatterns)),
     path("",include(clientUrlPatterns)),
     path("forbidden/",forbiddenPage),
+    
 
 
 
